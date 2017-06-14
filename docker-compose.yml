@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  nzbget:
+    image: llamallama/nzbget
+    restart: always
+    ports:
+      - "6789:6789/tcp"
+    volumes:
+      - nzbget_config:/config
+      - /mnt/downloads:/media
+    restart: always
+  sonarr:
+    image: llamallama/sonarr
+    restart: always
+    ports:
+      - "8989:8989/tcp"
+    volumes:
+      - sonarr_config:/config
+      - /mnt/downloads:/media
+  couchpotato:
+    image: llamallama/couchpotato
+    restart: always
+    ports:
+      - "5050:5050/tcp"
+    volumes:
+      - couchpotato_datadir:/datadir
+      - /mnt/downloads:/media
+volumes:
+  nzbget_config:
+  sonarr_config:
+  couchpotato_datadir:
